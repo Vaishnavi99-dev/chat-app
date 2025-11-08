@@ -3,7 +3,7 @@ name: Backend CI
 on:
   pull_request:
     branches:
-      - master
+      - main
     paths:
       - 'packages/server/**'
 
