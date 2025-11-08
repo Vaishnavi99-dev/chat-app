@@ -1,0 +1,17 @@
+{
+  "name": "chat-app",
+  "version": "1.0.0",
+  "workspaces": [
+    "packages/*"
+  ],
+"scripts": {
+    "install-all": "npm install && npm install --workspaces",
+    "start:dev": "concurrently \"npm:start --workspace=server\" \"npm:start --workspace=client\""
+  },
+  "author": "Vaishnavi Sharma G",
+  "license": "ISC",
+  "description": "A real-time chat application (monorepo) with client and server packages. Supports WebSocket-based messaging, rooms, user presence, and a modern developer workflow for building chat features.",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
