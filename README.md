@@ -12,3 +12,4 @@ Build for production:
 - Build client, build server, Dockerize or run with PM2.
 
 See packages folders for details.
+Workflow
