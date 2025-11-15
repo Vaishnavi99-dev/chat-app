@@ -3,3 +3,4 @@ node_modules/
 learning_tem.txt
 coverage/
 .env
+.http

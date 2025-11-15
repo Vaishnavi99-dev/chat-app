@@ -13,4 +13,13 @@ describe('Basic Server Test', () => {
     expect(res.text).toBe('Welcome to the Chat App Server!');
   });
 
+  it('should handle POST request with JSON body', async () => {
+    const res = await request(app)
+      .post('/test')
+      .send({ name: 'Vaishnavi' })
+      .set('Accept', 'application/json');
+    expect(res.statusCode).toBe(404);
+  });
+
+  
 });
