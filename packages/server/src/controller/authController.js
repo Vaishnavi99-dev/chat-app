@@ -1,24 +1,9 @@
 import { User } from "../models/User.js";
+import { registerSchema , loginSchema} from "../schema/authSchema.js";
 
 const registerUser = async (req, res) => {
     try {
         const { username, name, password } = req.body;
-
-        if (!username || !name || !password) {
-            return res.status(400).json({
-                status: "FAILURE",
-                message: "Mendatory fields are missing.",
-                data: null
-            });
-        }
-
-        if (password.length < 6) {
-            return res.status(400).json({
-                status: "FAILURE",
-                message: "Password must be greater than 6 characters.",
-                data: null
-            });
-        }
 
         const existingUser = await User.findOne({ username });
 
@@ -53,21 +38,14 @@ const registerUser = async (req, res) => {
             data: null
         });
     }
-
 }
 
 const loginUser = async (req, res) => {
 
     try {
+        console.log("Controller Login User Called", req.body);
+
         const { username, password } = req.body;
-    
-        if (!username || !password) {
-            return res.status(404).json({
-                status: "FAILURE",
-                message: "Mendatory Field is missing.",
-                data: null
-            });
-        }
     
         const existingUser = await User.findOne({ username });
     
