@@ -30,8 +30,9 @@ import { error } from 'console';
 import { connectDB } from './config/db.js';
 
 dotenv.config();
+let server = null;
 
-const PORT = process.env.PORT ?? NULL;
+const PORT = process.env.PORT ?? null;
 
 if (!PORT) {
   console.log("PORT does not exixt");
@@ -43,10 +44,12 @@ if (!PORT) {
   await connectDB();
 
   //creating http server
-  const server = http.createServer(app);
+  server = http.createServer(app);
 
   server.listen(PORT, () => {
     console.log(`Server is running on PORT ${PORT}`)
   });
 
 })();
+
+export { server };

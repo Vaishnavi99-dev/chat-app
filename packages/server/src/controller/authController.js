@@ -1,73 +1,38 @@
-import { User } from "../models/User.js";
-import { registerSchema , loginSchema} from "../schema/authSchema.js";
+import { authService } from "../services/authService.js";
 
 const registerUser = async (req, res) => {
     try {
-        const { username, name, password } = req.body;
-
-        const existingUser = await User.findOne({ username });
-
-        if (existingUser) {
-            return res.status(400).json({
-                status: "FAILURE",
-                message: "Username already exist try another.",
-                data: null
-            });
-
-        }
-
-        const user = new User({
-            username,
-            password,
-            name
-        });
-
-        const newUser = await user.save();
+        const userId = await authService.registerUser(req.validated.body);
 
         res.status(200).json({
             status: "SUCCESS",
             message: "User Created.",
-            data: newUser._id.toString()
+            data: userId
         });
 
     } catch (error) {
         console.log(error);
         res.status(500).json({
             status: "FAILURE",
-            message: "Internal server error.",
+            message: error.message ?? "Internal server error.",
             data: null
         });
     }
 }
 
 const loginUser = async (req, res) => {
-
     try {
-        console.log("Controller Login User Called", req.body);
-
-        const { username, password } = req.body;
-    
-        const existingUser = await User.findOne({ username });
-    
-        if (!existingUser || password !== existingUser.password) {
-            return res.status(404).json({
-                status: "FAILURE",
-                message: "Either the password or the username is incorrect.",
-                data: null
-            });
-        }
-    
+        const userId = await authService.loginUser(req.validated.body);
         res.status(200).json({
             status: "SUCCESS",
-            message: "User Login Succesfully.",
-            data: existingUser._id.toString()
+            message: "User Login Successfully.",
+            data: userId
         });
-    
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         res.status(500).json({
             status: "FAILURE",
-            message: "Internal server error.",
+            message: error.message ?? "Internal server error.",
             data: null
         });
     }

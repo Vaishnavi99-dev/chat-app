@@ -13,10 +13,8 @@ export const reqValidator = (schema) => {
             data   : null
         });
     }
-    console.log(result.data);
-    req.body = result.body.data;
-    req.params = result.body.params;
-    req.query = result.body.query;
+    // console.log(result.data);
+    req.validated = result.data;
     next();
   };
 };
